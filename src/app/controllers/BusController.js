@@ -7,18 +7,18 @@ export const index = async (req,res) => {
 }
 
 export const show = async (req, res) => {
-  const { cpf } = req.body;
+  const { bus } = req.body;
 
-  if (!cpf) {
-    return res.status(400).json({ error: 'Você precisa digitar o cpf' });
+  if (!bus) {
+    return res.status(400).json({ error: 'Você precisa digitar o bus' });
   }
 
-  const person = await Bus.findOne({cpf: cpf});
+  const person = await Bus.find({bus: bus});
 
   if (person === null) {
     return res
       .status(400)
-      .json({ error: 'CPF não encontrado!' });
+      .json({ error: 'Bus não encontrado!' });
   }
 
   return res.json(person);

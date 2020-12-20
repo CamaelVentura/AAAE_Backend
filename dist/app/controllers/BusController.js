@@ -2,23 +2,23 @@
 ;
 
  const index = async (req,res) => {
-  const bus = await _Bus2.default.find().sort('cpf');
+  const bus = await _Bus2.default.find().sort('bus');
   res.json(bus);
 }; exports.index = index
 
  const show = async (req, res) => {
-  const { cpf } = req.body;
+  const { bus } = req.body;
 
-  if (!cpf) {
-    return res.status(400).json({ error: 'Você precisa digitar o cpf' });
+  if (!bus) {
+    return res.status(400).json({ error: 'Você precisa digitar o bus' });
   }
 
-  const person = await _Bus2.default.findOne({cpf: cpf});
+  const person = await _Bus2.default.find({bus: bus});
 
   if (person === null) {
     return res
       .status(400)
-      .json({ error: 'CPF não encontrado!' });
+      .json({ error: 'Bus não encontrado!' });
   }
 
   return res.json(person);
@@ -50,6 +50,8 @@
  const update = async (req, res) => {
   const {cpf, bus, tel, name, ok} = req.body; 
   
+  const busFind = await _Bus2.default.find({bus}).countDocuments();
+
   const person = await _Bus2.default.findOne({
     cpf
   });
@@ -59,7 +61,7 @@
       .status(400)
       .json({ error: 'CPF não encontrado!' });
   }
-  if (person.bus === "" || ok) {
+  if ((person.bus === "" || ok) && busFind < 42) {
     const newBus = await _Bus2.default.findByIdAndUpdate(
       person.id,
       {
@@ -72,9 +74,17 @@
     return res.json(newBus);
   }
   else {
-    return res
-    .status(400)
-    .json({ error: 'CPF já cadastrado em outro busão!' });
+    if(busFind >= 42){
+      return res
+      .status(400)
+      .json({ error: 'Busão já está lotado!' });
+    }
+    else{
+      return res
+      .status(400)
+      .json({ error: 'CPF já cadastrado em outro busão!' });
+    }
+    
   }
 
   
