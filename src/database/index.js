@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
+import 'dotenv/config'
 
 
-this.mongoConnection = mongoose.connect('mongodb+srv://AAAEADMIN:caju1972@cluster0.sfmdx.mongodb.net/AAAEDB?retryWrites=true&w=majority',{
+this.mongoConnection = mongoose.connect(process.env.DATABASE,{
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
