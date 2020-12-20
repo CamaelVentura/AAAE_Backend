@@ -7,17 +7,14 @@ const BusSchema = new (0, _mongoose.Schema)({
   },
   name: {
     type: String,
-    required: true,
     default: "",
   },
   tel: {
     type: String,
-    required: true,
     default: "",
   },
   bus: {
     type: String,
-    required: true,
     default: "",
   }, 
 },

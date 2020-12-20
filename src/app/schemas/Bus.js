@@ -7,17 +7,14 @@ const BusSchema = new Schema({
   },
   name: {
     type: String,
-    required: true,
     default: "",
   },
   tel: {
     type: String,
-    required: true,
     default: "",
   },
   bus: {
     type: String,
-    required: true,
     default: "",
   }, 
 },
